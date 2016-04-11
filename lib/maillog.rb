@@ -3,7 +3,6 @@ require "maillog/delivery_method"
 require "maillog/mailer"
 require "maillog/mail"
 require "maillog/version"
-require "maillog/railtie" if defined?(Rails::Railtie)
 
 module Maillog
   class << self
@@ -28,7 +27,7 @@ module Maillog
     end
 
     def cache_classes?
-      return true unless defined?(Rails)
+      return true unless defined?(Rails) && Rails.respond_to?(:application)
       Rails.application.config.cache_classes
     end
   end
@@ -36,3 +35,5 @@ module Maillog
   self.model_class_name = "Maillog::Mail"
   self.mailer_class_name = "Maillog::Mailer"
 end
+
+ActionMailer::Base.add_delivery_method :maillog, Maillog::DeliveryMethod
