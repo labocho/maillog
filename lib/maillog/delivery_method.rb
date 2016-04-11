@@ -21,3 +21,4 @@ module Maillog
     end
   end
 end
+
