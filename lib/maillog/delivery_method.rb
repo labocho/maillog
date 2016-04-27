@@ -11,13 +11,14 @@ module Maillog
 
     def deliver!(mail)
       smtp_envelope_from, smtp_envelope_to, message = check_delivery_params(mail)
-      log = log_mail(message)
+      bcc = mail.bcc.blank? ? nil : mail.bcc.join(", ")
+      log = log_mail(message, bcc)
       log.deliver
     end
 
     private
-    def log_mail(message)
-      Maillog.model.create!(message: message, state: "delivered")
+    def log_mail(message, bcc)
+      Maillog.model.create!(message: message, bcc: bcc, state: "delivered")
     end
   end
 end

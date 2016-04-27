@@ -24,7 +24,11 @@ module Maillog
     end
 
     def parsed
-      @parsed ||= ::Mail::Message.new(message)
+      @parsed ||= begin
+        parsed = ::Mail::Message.new(message)
+        parsed.bcc = self[:bcc]
+        parsed
+      end
     end
   end
 end
