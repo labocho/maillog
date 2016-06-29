@@ -10,8 +10,15 @@ module Maillog
 
     delegate [:from, :to, :cc, :bcc, :reply_to, :subject, :body] => :parsed
 
+    # waiting time (sec) before deliver
+    def wait
+      0
+    end
+
     def deliver
       begin
+        update!(state: "processing")
+        sleep wait
         ActualDelivery.deliver(parsed)
         update!(state: "delivered")
       rescue SocketError, Net::OpenTimeout, Net::SMTPAuthenticationError, Net::SMTPFatalError
