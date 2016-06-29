@@ -15,6 +15,10 @@ module Maillog
       0
     end
 
+    # called on exception raised during delivery
+    def notify_error(error)
+    end
+
     def deliver
       begin
         update!(state: "processing")
@@ -27,6 +31,7 @@ module Maillog
           exception_class_name: $!.class.to_s,
           exception_message: $!.message,
         )
+        notify_error($!)
       end
     end
 
