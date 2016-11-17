@@ -1,3 +1,7 @@
+### v0.1.4
+
+- Support Rails 5.
+
 ### v0.1.3
 
 - Add `Maillog::Mail#notify_error` method that called when exception raised while deliverying.
