@@ -5,9 +5,7 @@ class MaillogTest < Test::Unit::TestCase
     self.delivery_method = :maillog
 
     def test
-      mail(from: "test@example.com", to: "test@example.com", subject: "test") do |format|
-        format.text { render text: "Hello" }
-      end
+      mail(from: "test@example.com", to: "test@example.com", subject: "test", body: "Hello")
     end
   end
 
@@ -70,9 +68,7 @@ class MaillogTest < Test::Unit::TestCase
   def another_mailer
     @another_mailer ||= Class.new(ActionMailer::Base) {
       def test
-        mail(from: "test@example.com", to: "test@example.com", subject: "test") do |format|
-          format.text { render text: "Hello" }
-        end
+        mail(from: "test@example.com", to: "test@example.com", subject: "test", body: "Hello")
       end
     }
   end
