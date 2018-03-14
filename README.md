@@ -27,6 +27,23 @@ Or install it yourself as:
       self.delivery_method = :maillog
     end
 
+## How to get log model for delivery
+
+Use `after_create_maillog`.
+
+    class MyMailer < ActionMailer::Base
+      self.delivery_method = :maillog
+
+      def notification(activity)
+        after_create_maillog do |log|
+          activity.maillog = log
+          activity.save!
+        end
+
+        # ...
+      end
+    end
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.

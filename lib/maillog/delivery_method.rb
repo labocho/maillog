@@ -24,6 +24,13 @@ module Maillog
       smtp_envelope_from, smtp_envelope_to, message = open_envelope(mail)
       bcc = mail.bcc.blank? ? nil : mail.bcc.join(", ")
       log = log_mail(message, bcc)
+
+      if callbacks = mail.instance_variable_get(:@maillog_callbacks)
+        callbacks.each do |callback|
+          callback.call(log)
+        end
+      end
+
       log.deliver
     end
 

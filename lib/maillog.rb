@@ -1,4 +1,5 @@
 require "maillog/actual_delivery"
+require "maillog/callback_registration"
 require "maillog/delivery_method"
 require "maillog/mailer"
 require "maillog/mail"
@@ -36,4 +37,5 @@ module Maillog
   self.mailer_class_name = "Maillog::Mailer"
 end
 
+ActionMailer::Base.include(Maillog::CallbackRegistration)
 ActionMailer::Base.add_delivery_method :maillog, Maillog::DeliveryMethod
