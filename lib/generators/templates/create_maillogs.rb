@@ -1,4 +1,4 @@
-class CreateMaillogs < (ActiveRecord::Migration.respond_to?(:[]) ? ActiveRecord::Migration[5.0] : ActiveRecord::Migration)
+class CreateMaillogs < <%= ActiveRecord::Migration.respond_to?(:[]) ? "ActiveRecord::Migration[#{ActiveRecord::Migration.current_version}]" : "ActiveRecord::Migration" %>
   def change
     create_table :maillogs do |t|
       t.text :message, null: false
