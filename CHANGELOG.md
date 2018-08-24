@@ -1,3 +1,19 @@
+### v0.1.8
+
+- Support Rails 5.1 (or later) migration file
+
+### v0.1.7
+
+- fix gemspec
+
+### v0.1.6
+
+- Add `after_create_maillog` to get maillog model for delivery.
+
+### v0.1.5
+
+- Supprt mail gem >= 2.5.5, >= 2.6.6.
+
 ### v0.1.4
 
 - Support Rails 5.
