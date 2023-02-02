@@ -1,15 +1,24 @@
-require "mail/check_delivery_params"
+require "mail/version"
 
 module Maillog
   class DeliveryMethod
     attr_accessor :settings
 
-    # >= 2.5.5, >= 2.6.6
-    if ::Mail::CheckDeliveryParams.respond_to?(:check)
+    mail_version = ::Gem::Version.new(::Mail::VERSION.version)
+    case
+    when mail_version >= ::Gem::Version.new("2.8.0")
+      private def open_envelope(mail)
+        envelope = ::Mail::SmtpEnvelope.new(mail)
+        [envelope.from, envelope.to, envelope.message]
+      end
+    when mail_version >= ::Gem::Version.new("2.5.5"),
+         mail_version >= ::Gem::Version.new("2.6.6")
+      require "mail/check_delivery_params"
       private def open_envelope(mail)
         ::Mail::CheckDeliveryParams.check(mail)
       end
     else
+      require "mail/check_delivery_params"
       include ::Mail::CheckDeliveryParams
       private def open_envelope(mail)
         check_delivery_params(mail)

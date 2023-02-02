@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## v0.1.9
+### Fixed
+- Support mail gem >= 2.8.0.
+
 ## v0.1.8
 ### Fixed
 - Support Rails 5.1 (or later) migration file

@@ -19,8 +19,10 @@ class MaillogTest < Test::Unit::TestCase
       )
 
       Dir.mktmpdir do |migration_dir|
-        FileUtils.cp "#{__dir__}/../lib/generators/templates/create_maillogs.rb", "#{migration_dir}/001_create_maillogs.rb"
-        ActiveRecord::Migrator.migrate(migration_dir, nil)
+        migration = ERB.new(File.read("#{__dir__}/../lib/generators/templates/create_maillogs.rb")).result
+        File.write("#{migration_dir}/001_create_maillogs.rb", migration)
+        ActiveRecord::MigrationContext.new(migration_dir, ActiveRecord::SchemaMigration).up
+        # ActiveRecord::Migrator.migrate(migration_dir, nil)
       end
     end
   end
