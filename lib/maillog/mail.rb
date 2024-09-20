@@ -17,6 +17,7 @@ module Maillog
 
     # called on exception raised during delivery
     def notify_error(error)
+      raise error
     end
 
     def deliver

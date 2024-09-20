@@ -6,6 +6,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## v0.2.0
+### Changed
+- Re-raise exceptions by default during delivering. If you prefer the previous behavior, define an empty `notify_error` method in a subclass of `Maillog::Mail`.
+
 ## v0.1.9
 ### Fixed
 - Support mail gem >= 2.8.0.
